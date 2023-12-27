@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/style.css">
+    <title>Configure Generator</title>
+</head>
+<body>
+    <h1>Configure Generator</h1>
+    <form id="configForm">
+        <label for="topics">Topics (comma-separated):</label>
+        <input type="text" id="topics" name="topics" required>
+
+        <label for="sleepTime">Sleep Time (in seconds):</label>
+        <input type="number" id="sleepTime" name="sleepTime" min="0" required>
+
+        <button type="button" onclick="submitConfig()">Submit</button>
+    </form>
+
+    <script>
+        function submitConfig() {
+            const topics = document.getElementById('topics').value;
+            const sleepTime = document.getElementById('sleepTime').value;
+
+            // Send data to the server using fetch or XMLHttpRequest
+            fetch('/api/config', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ topics, sleepTime }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert('Configuration submitted successfully!');
+            })
+            .catch(error => {
+                console.error('Error submitting configuration:', error);
+            });
+        }
+    </script>
+</body>
+</html>
